@@ -35,4 +35,4 @@ sensor_SHT15 = SHT1x(SHT15_dataPin, SHT15_clkPin, SHT1x.GPIO_BOARD)
 
 print sensor_SHT15.read_temperature_C()
 print sensor_SHT15.read_humidity()
-print sensor_BMP.read_pressure())
+print sensor_BMP.read_pressure()
