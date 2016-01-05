@@ -25,7 +25,7 @@ from sht1x.Sht1x import Sht1x as SHT1x
 SHT15_dataPin = 12
 SHT15_clkPin = 16
     
-#GPIO.setwarnings(False)
+GPIO.setwarnings(False)
 
 #BMP 9805 for pressure readings
 sensor_BMP = BMP085.BMP085()
