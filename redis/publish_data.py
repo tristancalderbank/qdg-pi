@@ -34,20 +34,32 @@ r = redis.StrictRedis(host='localhost', port=6379, db=0)
 #open up a pubsub instance
 pubsub = r.pubsub(ignore_subscribe_messages=True)
 
+pubsub.subscribe('timestamp')
+pubsub.subscribe('temperature')
+pubsub.subscribe('pressure')
+pubsub.subscribe('humidity')
 
 
 while True:
-	r.publish('temperature', sensor_SHT15.read_temperature_C())
-	time.sleep(60)
 
+        dt = datetime.datetime.now()
+        dt = dt.replace(microsecond=0) 
+        temperature = round(sensor_SHT15.read_temperature_C(), 2)
+        pressure = sensor_BMP.read_pressure()
+        humidity = round(sensor_SHT15.read_humidity(), 2)
 
+	r.publish('timestamp', dt)
+	r.publish('temperature', temperature) 
+	r.publish('pressure', pressure) 
+	r.publish('humidity', humidity) 
 
-#print pubsub.get_message()
-#print pubsub.get_message()
+	print pubsub.get_message()
+	print pubsub.get_message()
+	print pubsub.get_message()
+	print pubsub.get_message()
 
-#print sensor_SHT15.read_temperature_C()
-#print sensor_SHT15.read_humidity()
-#print sensor_BMP.read_pressure()
+	time.sleep(5)
+
 
 
 
