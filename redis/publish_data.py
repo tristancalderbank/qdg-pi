@@ -40,27 +40,30 @@ pubsub.subscribe('pressure')
 pubsub.subscribe('humidity')
 
 
-while True:
+try:
 
-        dt = datetime.datetime.now()
-        dt = dt.replace(microsecond=0) 
-        temperature = round(sensor_SHT15.read_temperature_C(), 2)
-        pressure = sensor_BMP.read_pressure()
-        humidity = round(sensor_SHT15.read_humidity(), 2)
+    while True:
 
-	r.publish('timestamp', dt)
-	r.publish('temperature', temperature) 
-	r.publish('pressure', pressure) 
-	r.publish('humidity', humidity) 
+            dt = datetime.datetime.now()
+            dt = dt.replace(microsecond=0) 
+            temperature = round(sensor_SHT15.read_temperature_C(), 2)
+            pressure = sensor_BMP.read_pressure()
+            humidity = round(sensor_SHT15.read_humidity(), 2)
 
-	print pubsub.get_message()
-	print pubsub.get_message()
-	print pubsub.get_message()
-	print pubsub.get_message()
+            r.publish('timestamp', dt)
+            r.publish('temperature', temperature) 
+            r.publish('pressure', pressure) 
+            r.publish('humidity', humidity) 
 
-	time.sleep(5)
+            print pubsub.get_message()
+            print pubsub.get_message()
+            print pubsub.get_message()
+            print pubsub.get_message()
 
+            time.sleep(60)
 
+except:
+    print 'exception: data publishing stopped'
 
 
 
