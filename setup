@@ -1,0 +1,19 @@
+#Setup for QDG-Pi
+
+#Pi
+#Crontab stuff
+@reboot /home/pi/Source/python/redis-stable/src/redis-server /home/pi/Source/python/redis-stable/redis.conf
+
+
+
+
+
+
+
+#Recieving Computer
+sudo apt-get install redis
+sudo apt-get install redis-py
+
+git clone https://github.com/tristiano/qdg-pi.git
+
+
