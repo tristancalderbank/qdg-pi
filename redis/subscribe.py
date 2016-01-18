@@ -23,7 +23,7 @@ def get_message():
 
 
 # connect to the Rasperry Pi Redis server
-r = redis.StrictRedis(host='192.168.1.67', port=6379, db=0)
+r = redis.StrictRedis(host='192.168.1.75', port=6379, db=0)
 
 # open up a pubsub instance
 pubsub = r.pubsub(ignore_subscribe_messages=True)
