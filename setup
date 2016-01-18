@@ -11,8 +11,9 @@
 
 
 #Recieving Computer
-sudo apt-get install redis
-sudo apt-get install redis-py
+sudo apt-get install redis-server
+#Get python client/library
+git clone https://github.com/andymccurdy/redis-py.git
 
 git clone https://github.com/tristiano/qdg-pi.git
 
