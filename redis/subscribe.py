@@ -19,15 +19,11 @@ def get_message():
             return temp
 
 
-# open file for writing
-data_file = open("/home/tristiano/Desktop/DATA.csv", "ab")
-file_writer = csv.writer(data_file)
-
 
 
 
 # connect to the Rasperry Pi Redis server
-r = redis.StrictRedis(host='192.168.1.75', port=6379, db=0)
+r = redis.StrictRedis(host='192.168.1.67', port=6379, db=0)
 
 # open up a pubsub instance
 pubsub = r.pubsub(ignore_subscribe_messages=True)
@@ -58,7 +54,11 @@ try:
             humidity = get_message()['data']
             print humidity
 
+# open file for writing
+	    data_file = open("/home/steam/Desktop/DATA.csv", "ab")
+	    file_writer = csv.writer(data_file)
             file_writer.writerow([timestamp, temperature, pressure, humidity]) 
+	    data_file.close()
 
 except:
     data_file.close()
