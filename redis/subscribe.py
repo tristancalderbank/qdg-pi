@@ -19,10 +19,9 @@ def get_message():
             return temp
 
 
-# open file for writing
-data_file = open("/home/tristiano/Desktop/DATA.csv", "ab")
-file_writer = csv.writer(data_file)
 
+# file paths
+data_folder_name = "TempData"
 
 
 
@@ -41,27 +40,41 @@ pubsub.subscribe('humidity')
 
 # main loop
 #-----------
-try:
+#try:
 
-    while True:
+while True:
 
 # make sure we get the messages in the right order
 
-        timestamp = get_message()
-        if (timestamp['channel'] == 'timestamp'):
-            timestamp = timestamp['data']
-            print timestamp
-            temperature = get_message()['data']
-            print temperature
-            pressure = get_message()['data']
-            print pressure
-            humidity = get_message()['data']
-            print humidity
+    timestamp = get_message()
+    if (timestamp['channel'] == 'timestamp'):
+        timestamp = timestamp['data']
+        print timestamp
+        temperature = get_message()['data']
+        print temperature
+        pressure = get_message()['data']
+        print pressure
+        humidity = get_message()['data']
+        print humidity
 
-            file_writer.writerow([timestamp, temperature, pressure, humidity]) 
+        # open file for writing
+        directory_name = "/home/tristiano/Desktop/" + data_folder_name + "/" + timestamp[0:4] + "/"           + timestamp[5:7] + "/"
 
-except:
-    data_file.close()
+        file_name = timestamp[8:10] + ".csv"
+        
+        if not os.path.exists(directory_name):
+                os.makedirs(directory_name)
+
+        file_path = directory_name + file_name
+
+        data_file = open(file_path, "ab")
+        file_writer = csv.writer(data_file)
+
+        file_writer.writerow([timestamp, temperature, pressure, humidity]) 
+        data_file.close()
+
+#except:
+    #data_file.close()
 
 
 
