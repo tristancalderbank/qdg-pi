@@ -4,10 +4,11 @@ import math
 import random
 import os
 import time
-import datetime
 import redis
 import string
-
+from datetime import datetime
+from pytz import timezone
+import pytz
 #Sensors
 import Adafruit_BMP.BMP085 as BMP085
 import RPi.GPIO as GPIO
@@ -40,32 +41,30 @@ pubsub.subscribe('pressure')
 pubsub.subscribe('humidity')
 
 
-try:
+#try:
+while True:
 
-    while True:
+        dt = datetime.now(timezone('US/Pacific'))
+        dt = dt.replace(microsecond=0)
+        dt = dt.replace(tzinfo=None)
+        temperature = round(sensor_SHT15.read_temperature_C(), 2)
+        pressure = sensor_BMP.read_pressure()
+        humidity = round(sensor_SHT15.read_humidity(), 2)
 
-            dt = datetime.datetime.now()
-            dt = dt.replace(microsecond=0) 
-            temperature = round(sensor_SHT15.read_temperature_C(), 2)
-            pressure = sensor_BMP.read_pressure()
-            humidity = round(sensor_SHT15.read_humidity(), 2)
+        r.publish('timestamp', dt)
+        r.publish('temperature', temperature) 
+        r.publish('pressure', pressure) 
+        r.publish('humidity', humidity) 
 
-            r.publish('timestamp', dt)
-            r.publish('temperature', temperature) 
-            r.publish('pressure', pressure) 
-            r.publish('humidity', humidity) 
+        print pubsub.get_message()
+        print pubsub.get_message()
+        print pubsub.get_message()
+        print pubsub.get_message()
 
-            print pubsub.get_message()
-            print pubsub.get_message()
-            print pubsub.get_message()
-            print pubsub.get_message()
+        time.sleep(60)
 
-            time.sleep(60)
-
-except:
-    print 'exception: data publishing stopped'
-
-
+#except:
+#    print 'exception: data publishing stopped'
 
 
 

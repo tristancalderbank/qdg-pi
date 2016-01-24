@@ -19,9 +19,12 @@ def get_message():
             return temp
 
 
+<<<<<<< HEAD
 
 # file paths
 data_folder_name = "TempData"
+=======
+>>>>>>> 61581a2c0c442eb54e89366a7224f512cc3e64e5
 
 
 
@@ -46,6 +49,7 @@ while True:
 
 # make sure we get the messages in the right order
 
+<<<<<<< HEAD
     timestamp = get_message()
     if (timestamp['channel'] == 'timestamp'):
         timestamp = timestamp['data']
@@ -75,6 +79,27 @@ while True:
 
 #except:
     #data_file.close()
+=======
+        timestamp = get_message()
+        if (timestamp['channel'] == 'timestamp'):
+            timestamp = timestamp['data']
+            print timestamp
+            temperature = get_message()['data']
+            print temperature
+            pressure = get_message()['data']
+            print pressure
+            humidity = get_message()['data']
+            print humidity
+
+# open file for writing
+	    data_file = open("/home/steam/Desktop/DATA.csv", "ab")
+	    file_writer = csv.writer(data_file)
+            file_writer.writerow([timestamp, temperature, pressure, humidity]) 
+	    data_file.close()
+
+except:
+    data_file.close()
+>>>>>>> 61581a2c0c442eb54e89366a7224f512cc3e64e5
 
 
 
