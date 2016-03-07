@@ -10,24 +10,9 @@ from datetime import datetime
 from pytz import timezone
 import pytz
 #Sensors
-import Adafruit_BMP.BMP085 as BMP085
-import RPi.GPIO as GPIO
-from sht1x.Sht1x import Sht1x as SHT1x
+from Adafruit_BME280 import *
 
-#data pins for SHT15
-
-SHT15_dataPin = 12
-SHT15_clkPin = 16
-    
-GPIO.setwarnings(False)
-
-#BMP 9805 for pressure readings
-sensor_BMP = BMP085.BMP085()
-
-#SHT15 for temperature and humidity
-sensor_SHT15 = SHT1x(SHT15_dataPin, SHT15_clkPin, SHT1x.GPIO_BOARD)
-
-
+sensor = BME280(mode=BME280_OSAMPLE_8)
 
 #connect to the Redis server
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
@@ -41,15 +26,13 @@ pubsub.subscribe('pressure')
 pubsub.subscribe('humidity')
 
 
-#try:
 while True:
 
-        dt = datetime.now(timezone('US/Pacific'))
-        dt = dt.replace(microsecond=0)
-        dt = dt.replace(tzinfo=None)
-        temperature = round(sensor_SHT15.read_temperature_C(), 2)
-        pressure = sensor_BMP.read_pressure()
-        humidity = round(sensor_SHT15.read_humidity(), 2)
+        dt = time.time()
+        
+        temperature = round(sensor.read_temperature(), 2)
+        pressure = round(sensor.read_pressure(), 2)
+        humidity = round(sensor.read_humidity(), 2)
 
         r.publish('timestamp', dt)
         r.publish('temperature', temperature) 
@@ -61,10 +44,8 @@ while True:
         print pubsub.get_message()
         print pubsub.get_message()
 
-        time.sleep(60)
+        time.sleep(4)
 
-#except:
-#    print 'exception: data publishing stopped'
 
 
 
