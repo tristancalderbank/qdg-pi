@@ -1,0 +1,121 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{hyperref}
+\usepackage{breakurl}
+\usepackage{listings}
+\usepackage{color}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+
+
+
+
+
+
+\title{QDG Raspberry Pi Ambient Sensing Project}
+\date{\today}
+\author{Tristan Calderbank}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Setting up the Raspberry Pi OS}
+
+\sloppy
+\begin{enumerate}
+
+\item Format the Pi's SD card and install Raspian (a linux distro) using instructions from the Raspberry Pi website: \href{https://www.raspberrypi.org/help/noobs-setup/}{https://www.raspberrypi.org/help/noobs-setup/}
+\item Start up the Raspberry Pi and login with the default username: \textbf{pi} and password: \textbf{raspberry}
+
+\item Connect to the internet and run system updates with the following terminal commands:
+
+\begin{lstlisting}[language=bash]
+sudo apt-get update
+sudo apt-get upgrade
+\end{lstlisting}
+
+\end{enumerate}
+
+\section{Redis Server}
+
+In order for the Raspberry Pi's to send data back to the lab computer we use a server called Redis.
+
+\begin{enumerate}
+
+\item Run the following command to install Redis:
+\begin{lstlisting}[language=bash]
+sudo apt-get install redis-server
+\end{lstlisting}
+
+
+
+\end{enumerate}
+
+\section{Temperature, Pressure, and Humidity sensors}
+
+The Pi uses a 3-in-one sensor made by Adafruit called the BME280. The datasheet can be found here: \href{https://www.adafruit.com/datasheets/BST-BME280\_DS001-10.pdf}{https://www.adafruit.com/datasheets/BST-BME280\_DS001-10.pdf}
+
+\begin{enumerate}
+
+\item The sensor uses this driver: \href{https://github.com/adafruit/Adafruit\_Python\_BME280}{https://github.com/adafruit/Adafruit\_Python\_BME280} which is already included with the project source code for this project
+\item Before using the driver you must first install the Adafruit Python GPIO package by running the following commands:
+
+\begin{lstlisting}[language=bash]
+sudo apt-get update
+sudo apt-get install build-essential python-pip python-dev python-smbus git
+git clone https://github.com/adafruit/Adafruit_Python_GPIO.git
+cd Adafruit_Python_GPIO
+sudo python setup.py install
+\end{lstlisting}
+
+\item The sensor communicates using the I2C protocol which we must first enable on the Raspberry Pi. Use this guide to enable I2C: \href{https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c}{https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c}
+
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
