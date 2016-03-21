@@ -14,8 +14,10 @@ from Adafruit_BME280 import *
 
 sensor = BME280(mode=BME280_OSAMPLE_8)
 
+ip = '10.1.137.203'
+
 #connect to the Redis server
-r = redis.StrictRedis(host='192.168.1.65', port=6379, db=0)
+r = redis.StrictRedis(host=ip, port=6379, db=0)
 
 #open up a pubsub instance
 pubsub = r.pubsub(ignore_subscribe_messages=True)
