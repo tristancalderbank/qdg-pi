@@ -2,7 +2,6 @@
 \usepackage[colorlinks=true,
 	    linkcolor=blue,
     	    urlcolor=blue]{hyperref}
-\usepackage{breakurl}
 \usepackage{listings}
 \usepackage{color}
 
@@ -149,10 +148,11 @@ crontab -e
 
 \begin{enumerate}
 
-\item First install apache2 web server to host the page:
+\item First install apache and php to host the page:
 
 \begin{lstlisting}[language=bash]
 sudo apt-get install apache2
+sudo apt-get install php5
 \end{lstlisting}
 
 You can make sure it worked by typing your local ip address into a browser. You should get the default apache2 webpage.
@@ -164,6 +164,12 @@ cd /var/www/
 sudo rm -rf html/
 sudo git clone https://github.com/tristancalderbank/ambient-data
 sudo mv ambient-data html
+\end{lstlisting}
+
+\item Configure permissions for apache to read/write files on the server:
+\begin{lstlisting}[language=bash]
+sudo chgrp -R www-data html
+sudo chmod -R 755 html
 \end{lstlisting}
 
 \end{enumerate}
