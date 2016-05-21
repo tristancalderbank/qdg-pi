@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2016.2.1)  19 MAR 2016 22:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2016.3.22)  22 MAR 2016 22:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -96,6 +96,7 @@ File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
+Package hyperref Info: Option `colorlinks' set `true' on input line 4319.
 Package hyperref Info: Hyper figures OFF on input line 4443.
 Package hyperref Info: Link nesting OFF on input line 4448.
 Package hyperref Info: Hyper index ON on input line 4451.
@@ -118,7 +119,7 @@ Package hyperref Info: Hyper figures OFF on input line 6295.
 Package hyperref Info: Link nesting OFF on input line 6300.
 Package hyperref Info: Hyper index ON on input line 6303.
 Package hyperref Info: backreferencing OFF on input line 6310.
-Package hyperref Info: Link coloring OFF on input line 6315.
+Package hyperref Info: Link coloring ON on input line 6313.
 Package hyperref Info: Link coloring with OCG OFF on input line 6320.
 Package hyperref Info: PDF/A mode OFF on input line 6325.
 LaTeX Info: Redefining \ref on input line 6365.
@@ -150,38 +151,24 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip43
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/breakurl/breakurl.sty
-Package: breakurl 2013/04/10 v1.40 Breakable hyperref URLs
-
-(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-Package: xkeyval 2012/10/14 v2.6b package option processing (HA)
-
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-\XKV@toks=\toks18
-\XKV@tempa@toks=\toks19
-\XKV@depth=\count98
-File: xkeyval.tex 2012/10/14 v2.6b key=value parser (HA)
-))
-\burl@toks=\toks20
-)
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count99
+\lst@mode=\count98
 \lst@gtempboxa=\box27
-\lst@token=\toks21
-\lst@length=\count100
+\lst@token=\toks18
+\lst@length=\count99
 \lst@currlwidth=\dimen107
-\lst@column=\count101
-\lst@pos=\count102
+\lst@column=\count100
+\lst@pos=\count101
 \lst@lostspace=\dimen108
 \lst@width=\dimen109
-\lst@newlines=\count103
-\lst@lineno=\count104
+\lst@newlines=\count102
+\lst@lineno=\count103
 \lst@maxwidth=\dimen110
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
-\c@lstnumber=\count105
-\lst@skipnumbers=\count106
+\c@lstnumber=\count104
+\lst@skipnumbers=\count105
 \lst@framebox=\box28
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
@@ -206,22 +193,22 @@ File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 (./user-manual.aux)
 \openout1 = `user-manual.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
 \AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring OFF on input line 42.
+Package hyperref Info: Link coloring ON on input line 43.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -229,32 +216,41 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count107
+\c@section@level=\count106
 )
-LaTeX Info: Redefining \ref on input line 42.
-LaTeX Info: Redefining \pageref on input line 42.
-LaTeX Info: Redefining \nameref on input line 42.
+LaTeX Info: Redefining \ref on input line 43.
+LaTeX Info: Redefining \pageref on input line 43.
+LaTeX Info: Redefining \nameref on input line 43.
 
 (./user-manual.out) (./user-manual.out)
 \@outlinefile=\write3
 \openout3 = `user-manual.out'.
 
-\c@lstlisting=\count108
+\c@lstlisting=\count107
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 44.
+(Font)              <14.4> on input line 45.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 44.
- (./user-manual.toc)
+(Font)              <7> on input line 45.
+ (./user-manual.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+)
 \tf@toc=\write4
 \openout4 = `user-manual.toc'.
 
+ [1
 
-Underfull \hbox (badness 3646) in paragraph at lines 51--52
+]
+Underfull \hbox (badness 3646) in paragraph at lines 55--56
 []\OT1/cmr/m/n/12 Format the Pi's SD card and in-stall Raspian (a linux dis-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 51--52
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
 \OT1/cmr/m/n/12 tro) us-ing in-struc-tions from the Rasp-berry Pi web-site:
  []
 
@@ -265,46 +261,45 @@ File: lstlang1.sty 2013/08/26 1.5b listings language file
 File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 57.
+(Font)              <5> on input line 61.
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--81
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
 \OT1/cmr/m/n/12 The Pi uses a 3-in-one sen-sor made by Adafruit called
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--81
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
 \OT1/cmr/m/n/12 the BME280. The datasheet can be found here:
  []
 
-[1
-
-]
-Overfull \hbox (65.16917pt too wide) in paragraph at lines 84--85
-[]\OT1/cmr/m/n/12 The sen-sor uses this driver: [][][][]
- []
-
-
-Overfull \hbox (74.18546pt too wide) in paragraph at lines 95--96
-[][][][] 
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 99.
 [2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 99.
+Overfull \hbox (65.16917pt too wide) in paragraph at lines 106--107
+[]\OT1/cmr/m/n/12 The sen-sor uses this driver: [][][][][][]
+ []
+
+
+Overfull \hbox (74.18546pt too wide) in paragraph at lines 117--118
+[][][][][][] 
+ []
+
+[3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 177.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 177.
  (./user-manual.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 99.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 99.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 177.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 177.
 Package rerunfilecheck Info: File `user-manual.out' has not changed.
-(rerunfilecheck)             Checksum: 11F4CF852EC4FAF91F297A44D76083BC;190.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 99.
+(rerunfilecheck)             Checksum: F2CF16EDAF1A63468574537EFFEF0DAD;510.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
  ) 
 Here is how much of TeX's memory you used:
- 6152 strings out of 495029
- 91742 string characters out of 6181524
- 209502 words of memory out of 5000000
- 9347 multiletter control sequences out of 15000+600000
- 6364 words of font info for 23 fonts, out of 8000000 for 9000
+ 5941 strings out of 495029
+ 88311 string characters out of 6181523
+ 231570 words of memory out of 5000000
+ 9142 multiletter control sequences out of 15000+600000
+ 8808 words of font info for 31 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 47i,6n,99p,349b,1208s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,6n,51p,349b,1154s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on user-manual.dvi (2 pages, 14992 bytes).
+Output written on user-manual.dvi (4 pages, 36728 bytes).

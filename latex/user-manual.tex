@@ -1,6 +1,7 @@
 \documentclass[a4paper,12pt]{article}
-\usepackage{hyperref}
-\usepackage{breakurl}
+\usepackage[colorlinks=true,
+	    linkcolor=blue,
+    	    urlcolor=blue]{hyperref}
 \usepackage{listings}
 \usepackage{color}
 
@@ -42,8 +43,11 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\newpage
 
-\section{Setting up the Raspberry Pi OS}
+\section{Raspberry Pi}
+
+\subsection{Setup}
 
 \sloppy
 \begin{enumerate}
@@ -58,24 +62,42 @@ sudo apt-get update
 sudo apt-get upgrade
 \end{lstlisting}
 
-\end{enumerate}
+\item Set the system time using this command:
 
-\section{Redis Server}
-
-In order for the Raspberry Pi's to send data back to the lab computer we use a server called Redis.
-
-\begin{enumerate}
-
-\item Run the following command to install Redis:
-\begin{lstlisting}[language=bash]
-sudo apt-get install redis-server
+\item Navigate to the user home directory and clone the source code repo from github:
+\begin{lstlisting}[language=bash, mathescape]
+cd $\sim$
+git clone https://github.com/tristancalderbank/qdg-pi
 \end{lstlisting}
 
 
+\end{enumerate}
+
+\subsection{Redis Server}
+
+In order for the Raspberry Pis to send data back to the lab computer we use a server called Redis. The developers recommend compiling it manually rather than using apt-get.
+
+\begin{enumerate}
+
+\item Run the following commands to install Redis:
+\begin{lstlisting}[language=bash, mathescape]
+cd /home/pi/Downloads
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+make
+sudo cp src/redis-server /usr/local/bin/
+sudo cp src/redis-cli /usr/local/bin/
+sudo mkdir /etc/redis
+sudo mkdir /var/redis
+sudo cp utils/redis_init_script /etc/init.d/redis_6379
+sudo cp /home/pi/qdg-pi/6379.conf /etc/redis/6379.conf
+sudo update-rc.d redis_6379 defaults
+\end{lstlisting}
 
 \end{enumerate}
 
-\section{Temperature, Pressure, and Humidity sensors}
+\subsection{Temperature, Pressure, and Humidity Sensors}
 
 The Pi uses a 3-in-one sensor made by Adafruit called the BME280. The datasheet can be found here: \href{https://www.adafruit.com/datasheets/BST-BME280\_DS001-10.pdf}{https://www.adafruit.com/datasheets/BST-BME280\_DS001-10.pdf}
 
@@ -85,14 +107,70 @@ The Pi uses a 3-in-one sensor made by Adafruit called the BME280. The datasheet 
 \item Before using the driver you must first install the Adafruit Python GPIO package by running the following commands:
 
 \begin{lstlisting}[language=bash]
-sudo apt-get update
 sudo apt-get install build-essential python-pip python-dev python-smbus git
+cd /home/pi/Downloads
 git clone https://github.com/adafruit/Adafruit_Python_GPIO.git
 cd Adafruit_Python_GPIO
 sudo python setup.py install
 \end{lstlisting}
 
 \item The sensor communicates using the I2C protocol which we must first enable on the Raspberry Pi. Use this guide to enable I2C: \href{https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c}{https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c}
+
+\end{enumerate}
+
+\subsection{Python Scripts}
+
+\begin{enumerate}
+\item First install the python Redis module as well as the timezone module:
+\begin{lstlisting}[language=bash]
+sudo pip install redis
+sudo pip install pytz
+\end{lstlisting}
+\item To make the data publishing script run on startup we add it to Crontab:
+\begin{lstlisting}[language=bash]
+crontab -e
+\end{lstlisting}
+\item Add the following line to the end of the crontab file:
+\begin{lstlisting}[language=bash]
+@reboot redis-server &
+@reboot sudo python /home/pi/qdg-pi/publish-data.py
+\end{lstlisting}
+
+\item Go into the qdg-pi folder and edit the script called "publish\_data.py" to have the correct IP addresses for the Pi's
+
+
+\end{enumerate}
+
+\section{Host Computer}
+\subsection{Recieving Data from the Pi's}
+
+\subsection{Hosting the Web App}
+
+\begin{enumerate}
+
+\item First install apache and php to host the page:
+
+\begin{lstlisting}[language=bash]
+sudo apt-get install apache2
+sudo apt-get install php5
+\end{lstlisting}
+
+You can make sure it worked by typing your local ip address into a browser. You should get the default apache2 webpage.
+
+\item Navigate to the default apache server directory and delete the folder called "html". Clone the web app repo and rename the folder "html":
+
+\begin{lstlisting}[language=bash]
+cd /var/www/
+sudo rm -rf html/
+sudo git clone https://github.com/tristancalderbank/ambient-data
+sudo mv ambient-data html
+\end{lstlisting}
+
+\item Configure permissions for apache to read/write files on the server:
+\begin{lstlisting}[language=bash]
+sudo chgrp -R www-data html
+sudo chmod -R 755 html
+\end{lstlisting}
 
 \end{enumerate}
 
