@@ -31,12 +31,15 @@ def I2C_setup(i2c_channel_setup):
 #GPIO.setup(17,GPIO.OUT)
 #GPIO.output(17,True)
 
-for channel in range(0,7):
+for channel in range(0,4):
 	I2C_setup(mux_channel[channel])
 	sensor = BME280(mode=BME280_OSAMPLE_8)
 	temperature = round(sensor.read_temperature(), 2)
 	print "Channel " + str(channel) + ": " + str(temperature)
 
+print "Sucessfully read all sensors!"
+
+"""
 while True:
 	print "Enter channel to read: "
 	channel = input()
@@ -44,7 +47,7 @@ while True:
 	sensor = BME280(mode=BME280_OSAMPLE_8)
 	temperature = round(sensor.read_temperature(), 2)
 	print temperature
-
+"""
 
 
 
