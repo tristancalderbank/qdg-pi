@@ -17,8 +17,8 @@ from Adafruit_BME280 import *
 import RPi.GPIO as GPIO
 
 # configuration
-room_name = "mol_lab"
-server_ip = '10.1.137.176'
+room_name = "master"
+server_ip = '10.1.137.253'
 server_port = 6379
 max_number_of_sensors = 8
 digits_to_round_to = 2
@@ -68,6 +68,7 @@ def connect_to_server(server_ip,server_port):
 	while connected == False:
 		try:
 			server_connection = redis.StrictRedis(host=server_ip, port=server_port, db=0)
+			server_connection.ping()
 			connected = True
 			print "Successfully connected to redis-server at " + server_ip +"."
 		except redis.exceptions.ConnectionError:
@@ -94,6 +95,7 @@ server_connection = connect_to_server(server_ip, server_port)
 while True:
 	sensor_data = read_sensors(max_number_of_sensors)
 	timestamp = strftime("%Y-%m-%d %H:%M:%S")
+	print timestamp
 	sensor_data.insert(0, timestamp)
 
 	server_connection = check_if_connected(server_connection, server_ip, server_port)	
