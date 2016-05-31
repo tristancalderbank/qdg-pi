@@ -1,101 +1,74 @@
-#Basic imports
 import sys
-import math
-import random
 import os
-import time
-import datetime
 import redis
-import string
 import csv
 
+# configuration
+server_port = '6379'
+server_ip = 'localhost'
+max_number_of_sensors = 8
+room_names = ["mol", "master"]
 
-master_table_IP = '192.168.1.65'
-MOL_lab_IP = '10.42.0.43'
 
-# gets a valid message
 
 def get_message(pubsub):
     while True:
-        temp = pubsub.get_message()
-        if (temp is not None):
-            return temp
+        message = pubsub.get_message()
+        if (message is not None):
+            return message
 
-def read_message(pubsub):
+def parse_message(message):
+    room = message['channel']
+    message = message['data']
+    exec('message = ' + message)
+    timestamp = message[0]
+    sensor_data = message[1:max_number_of_sensors + 1]
+    return room, timestamp, sensor_data
 
-    timestamp = get_message(pubsub)
-    if (timestamp['channel'] == 'timestamp'):
-        timestamp = timestamp['data']
-        print timestamp
-        temperature = get_message(pubsub)['data']
-        print temperature
-        pressure = get_message(pubsub)['data']
-        print pressure
-        humidity = get_message(pubsub)['data']
-        print humidity
+ 
+def write_to_file(data_directory, room, timestamp, sensor_data):
 
-        return timestamp, temperature, pressure, humidity
+    data_directory = data_directory + room
+    file_name = timestamp[0:10] + ".csv"
+    sensor_number = 0
 
+    for sensor in sensor_data:
+       
+        if sensor != "no_data":
+            sensor_directory = data_directory + "/" + "sensor_" + str(sensor_number) + "/"
+            sensor_file_path = sensor_directory + file_name
 
-# file paths
-master_table_directory = "/var/www/html/data/master-table/"
-MOL_lab_directory = "/var/www/html/data/MOL-lab/"
+            if not os.path.exists(sensor_directory):
+                    os.makedirs(sensor_directory)
 
-# connect to the Rasperry Pi Redis server
-redis_master_table = redis.StrictRedis(host=master_table_IP, port=6379, db=0)
-redis_MOL_lab = redis.StrictRedis(host=MOL_lab_IP, port=6379, db=0)
+            data_file = open(sensor_file_path, "ab")
+            file_writer = csv.writer(data_file)
+            file_writer.writerow([timestamp, sensor[0], sensor[1], sensor[2]]) 
+            data_file.close()
 
-# open up a pubsub instance
-pubsub_master_table = redis_master_table.pubsub(ignore_subscribe_messages=True)
-pubsub_MOL_lab = redis_MOL_lab.pubsub(ignore_subscribe_messages=True)
+        sensor_number+=1
 
-pubsub_master_table.subscribe('timestamp')
-pubsub_master_table.subscribe('temperature')
-pubsub_master_table.subscribe('pressure')
-pubsub_master_table.subscribe('humidity')
+website_data_directory = "/var/www/html/data/"
 
-pubsub_MOL_lab.subscribe('timestamp')
-pubsub_MOL_lab.subscribe('temperature')
-pubsub_MOL_lab.subscribe('pressure')
-pubsub_MOL_lab.subscribe('humidity')
+server_connection = redis.StrictRedis(host=server_ip, port=server_port, db=0)
+
+pubsub = server_connection.pubsub(ignore_subscribe_messages=True)
+
+for room in room_names:
+    pubsub.subscribe(room)
 
 # main loop
 
 while True:
 
-# make sure we get the messages in the right order
-    
+    message = get_message(pubsub)
+    room, timestamp, sensor_data = parse_message(message)
+    print timestamp
+    write_to_file(website_data_directory, room, timestamp, sensor_data)
 
-        timestamp, temperature, pressure, humidity = read_message(pubsub_master_table)
 
-        if(timestamp != None):
-            # open file for writing
-            file_name = (time.strftime("%Y-%m-%d")) + ".csv"
-            
-            if not os.path.exists(master_table_directory):
-                    os.makedirs(master_table_directory)
 
-            file_path = master_table_directory + file_name
 
-            data_file = open(file_path, "ab")
-            file_writer = csv.writer(data_file)
-            file_writer.writerow([timestamp, temperature, pressure, humidity]) 
-            data_file.close()
 
-        timestamp, temperature, pressure, humidity = read_message(pubsub_MOL_lab)
-
-        if(timestamp != None):
-            # open file for writing
-            file_name = (time.strftime("%Y-%m-%d")) + ".csv"
-            
-            if not os.path.exists(MOL_lab_directory):
-                    os.makedirs(MOL_lab_directory)
-
-            file_path = MOL_lab_directory + file_name
-
-            data_file = open(file_path, "ab")
-            file_writer = csv.writer(data_file)
-            file_writer.writerow([timestamp, temperature, pressure, humidity]) 
-            data_file.close()
 
 
