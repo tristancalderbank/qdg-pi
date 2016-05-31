@@ -48,7 +48,7 @@ def write_to_file(data_directory, room, timestamp, sensor_data):
 
         sensor_number+=1
 
-website_data_directory = "/var/www/html/data/"
+website_data_directory = "/var/www/qdg-pi-web/data/"
 
 server_connection = redis.StrictRedis(host=server_ip, port=server_port, db=0)
 
