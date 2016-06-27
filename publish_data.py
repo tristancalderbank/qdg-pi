@@ -17,8 +17,10 @@ from Adafruit_BME280 import *
 import RPi.GPIO as GPIO
 
 # configuration
-room_name = "master"
-server_ip = '10.1.137.253'
+room_name = "mol"
+
+
+server_ip = '142.103.237.33'
 server_port = 6379
 max_number_of_sensors = 8
 digits_to_round_to = 2
@@ -97,9 +99,10 @@ while True:
 	timestamp = strftime("%Y-%m-%d %H:%M:%S")
 	print timestamp
 	sensor_data.insert(0, timestamp)
+	print sensor_data
 
 	server_connection = check_if_connected(server_connection, server_ip, server_port)	
 	server_connection.publish(room_name, sensor_data)
-	time.sleep(1)
+	time.sleep(10)
 
 
