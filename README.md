@@ -8,9 +8,10 @@ Python script that runs on a Raspberry Pi and publishes data from an array of mu
 https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c
 
 2) Configure the timezone on the pi by running the following command:
-'''
+
+```bash
 sudo dpkg-reconfigure tzdata
-'''
+```
 
 3) Run pi-setup.py to install python dependencies and add cronjob for starting the publishing script if the pi reboots
 
