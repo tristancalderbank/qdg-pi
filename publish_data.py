@@ -20,7 +20,7 @@ import RPi.GPIO as GPIO
 room_name = "mol"
 
 
-server_ip = '142.103.237.33'
+server_ip = '10.1.227.34'
 server_port = 6379
 max_number_of_sensors = 8
 digits_to_round_to = 2
